@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elham & Mohammed - Week 1 Tasks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+            color: #2d3436;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #2c3e50, #4ca1af);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+        }
+        
+        .week-info {
+            margin: 15px 0;
+        }
+        
+        .week-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .progress-container {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background: #ecf0f1;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .team-members {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .member {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .member img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #4ca1af;
+        }
+        
+        .task-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            gap: 10px;
+        }
+        
+        .task-item:last-child {
+            border-bottom: none;
+        }
+        
+        .task-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .task-item label {
+            flex: 1;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
+        .task-item.completed label {
+            text-decoration: line-through;
+            color: #7f8c8d;
+        }
+        
+        .priority {
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .priority.high {
+            background: #ffeaea;
+            color: #e74c3c;
+        }
+        
+        .priority.medium {
+            background: #fff4e0;
+            color: #f39c12;
+        }
+        
+        .priority.low {
+            background: #e8f5e9;
+            color: #27ae60;
+        }
+        
+        .due-date {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-left: 10px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-card h4 {
+            font-size: 2rem;
+            margin: 10px 0;
+        }
+        
+        .collaboration {
+            margin-top: 20px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4ca1af;
+        }
+        
+        .collaboration h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-box {
+            margin-top: 20px;
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .info-box h4 {
+            color: #0d47a1;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-content {
+            display: none;
+            margin-top: 10px;
+        }
+        
+        .info-toggle {
+            color: #2196f3;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .info-toggle:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-database"></i>
+                <h1>Database & Embedding Team</h1>
+            </div>
+            <div class="week-info">
+                <h2>Week 1: Setup & Foundations</h2>
+                <p>Complete database setup and installation tasks</p>
+            </div>
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span>Team Progress: 0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="dashboard">
+            <div class="card">
+                <h3><i class="fas fa-user"></i> Elham's Tasks</h3>
+                <div class="member">
+                    <i class="fas fa-user-circle fa-3x" style="color: #4ca1af;"></i>
+                    <div>
+                        <div class="name" style="font-weight: bold;">Elham</div>
+                        <div class="role">Database Schema & SQL</div>
+                    </div>
+                </div>
+                
+                <ul class="task-list">
+                    <li class="task-item">
+                        <input type="checkbox">
+                        <label>Native PostgreSQL installation</label>
+                        <span class="priority high">High</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox">
+                        <label>Install pgvector extension</label>
+                        <span class="priority high">High</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox">
+                        <label>Design database schema</label>
+                        <span class="priority high">High</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox">
+                        <label>Write SQL table creation script</label>
+                        <span class="priority high">High</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox">
+                        <label>Test database connection</label>
+                        <span class="priority medium">Medium</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox">
+                        <label>Document installation steps</label>
+                        <span class="priority low">Low</span>
+                    </li>
+                </ul>
+                
+                <div class="collaboration">
+                    <h4><i class="fas fa-handshake"></i> Collaboration Points with Mohammed</h4>
+                    <p>• Quick sync to finalize database schema design</p>
+                    <p>• Verify Python script works with your database structure</p>
+                    <p>• Combine documentation at the end of the week</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-user"></i> Mohammed's Tasks</h3>
+                <div class="member">
+                    <i class="fas fa-user-circle fa-3x" style="color: #2c3e50;"></i>
+                    <div>
+                        <div class="name" style="font-weight: bold;">Mohammed</div>
+                        <div class="role">Python Connection & Scripts</div>
+                    </div>
+                </div>
+                
+                <ul class="task-list">
+                    <li class="task-item">
+                        <input type="checkbox">
+                        <label>Native PostgreSQL installation</label>
+                        <span class="priority high">High</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox">
+                        <label>Install pgvector extension</label>
+                        <span class="priority high">High</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox">
+                        <label>Write Python connection script</label>
+                        <span class="priority high">High</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox">
+                        <label>Test Python-DB connection</label>
+                        <span class="priority medium">Medium</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox">
+                        <label>Document Python setup steps</label>
+                        <span class="priority low">Low</span>
+                    </li>
+                </ul>
+                
+                <div class="collaboration">
+                    <h4><i class="fas fa-handshake"></i> Collaboration Points with Elham</h4>
+                    <p>• Quick sync to finalize database schema design</p>
+                    <p>• Test your Python script with Elham's database structure</p>
+                    <p>• Combine documentation at the end of the week</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card" style="margin-top: 20px;">
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div>Tasks Completed</div>
+                    <h4>0/16</h4>
+                </div>
+                <div class="stat-card">
+                    <div>Days Remaining</div>
+                    <h4>7</h4>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const progressBar = document.querySelector('.progress');
+            const completedTasksElement = document.querySelector('.stat-card h4');
+            
+            // Load saved state from localStorage
+            checkboxes.forEach(checkbox => {
+                const taskId = checkbox.nextElementSibling.textContent.trim();
+                const savedState = localStorage.getItem(taskId);
+                
+                if (savedState === 'checked') {
+                    checkbox.checked = true;
+                    checkbox.parentElement.classList.add('completed');
+                }
+                
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        this.parentElement.classList.add('completed');
+                        localStorage.setItem(taskId, 'checked');
+                    } else {
+                        this.parentElement.classList.remove('completed');
+                        localStorage.removeItem(taskId);
+                    }
+                    updateProgress();
+                });
+            });
+            
+            // Update progress bar
+            function updateProgress() {
+                const totalTasks = document.querySelectorAll('.task-item').length;
+                const completedTasks = document.querySelectorAll('.task-item.completed').length;
+                const progressPercentage = (completedTasks / totalTasks) * 100;
+                
+                progressBar.style.width = `${progressPercentage}%`;
+                
+                // Update stats
+                completedTasksElement.textContent = `${completedTasks}/${totalTasks}`;
+                
+                // Update header progress text
+                document.querySelector('.progress-info span').textContent = 
+                    `Team Progress: ${Math.round(progressPercentage)}%`;
+            }
+            
+            // Initialize progress
+            updateProgress();
+        });
+
+        function toggleInfo() {
+            const infoContent = document.getElementById('schemaInfo');
+            const infoToggle = document.querySelector('.info-toggle');
+            
+            if (infoContent.style.display === 'block') {
+                infoContent.style.display = 'none';
+                infoToggle.textContent = 'Click to learn more about database schemas ↓';
+            } else {
+                infoContent.style.display = 'block';
+                infoToggle.textContent = 'Click to hide information ↑';
+            }
+        }
+    </script>
+</body>
+</html>
